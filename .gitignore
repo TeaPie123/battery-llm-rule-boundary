@@ -1,0 +1,56 @@
+# raw/private data
+data/raw/
+*.xlsx
+*.xls
+
+# pretrained base models
+models/
+
+# large generated datasets
+data/processed/lora_full_balanced_v3/
+data/processed/lora_boundary_v4/
+data/processed/lora_sample/
+data/processed/lora_sample_v2/
+data/processed/record_core*
+data/processed/*anomalies*
+data/processed/*debug*
+
+# model outputs and checkpoints
+outputs/qwen_lora*/
+checkpoint-*/
+*.safetensors
+*.bin
+*.pt
+*.pth
+
+# logs and caches
+*.log
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.cache/
+
+# ignore other intermediate processed files
+data/processed/*.jsonl
+!data/processed/boundary_test/
+!data/processed/boundary_test/**
+!data/processed/boundary_train/
+!data/processed/boundary_train/**
+
+# rule mining and early outputs
+data/rules/
+outputs/*.csv
+outputs/*.txt
+outputs/*.png
+outputs/new_paper_baseline/
+outputs/rule_verifier/*.csv
+outputs/rule_verifier/*.txt
+outputs/boundary_eval/*.csv
+outputs/boundary_eval/*.jsonl
+outputs/boundary_eval/*.txt
+
+# keep paper summaries
+!outputs/new_paper_final/
+!outputs/new_paper_final/**
+!outputs/rule_verifier/rule_verifier_summary_for_paper.md
+!outputs/boundary_eval/boundary_summary_for_paper.md

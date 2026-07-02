@@ -1,0 +1,8 @@
+dataset,method,accuracy,precision,recall,f1,tp,fp,tn,fn,wrong
+standard,v3_lora,0.999188,0.998378,1.000000,0.999189,1847,3,1845,0,3
+standard,v3_ruleverifier,1.000000,1.000000,1.000000,1.000000,1847,0,1848,0,0
+standard,v4_boundary_aware_lora,0.997023,0.994080,1.000000,0.997031,1847,11,1837,0,11
+boundary,v3_lora,0.605634,0.422222,0.904762,0.575758,19,26,24,2,28
+boundary,v3_ruleverifier,1.000000,1.000000,1.000000,1.000000,21,0,50,0,0
+boundary,v4_boundary_aware_lora,0.718310,0.515152,0.809524,0.629630,17,16,34,4,20
+boundary,v4_ruleverifier,1.000000,1.000000,1.000000,1.000000,21,0,50,0,0
