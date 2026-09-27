@@ -46,6 +46,19 @@ The complete Table III metrics, exact confidence intervals, paired tests, natura
 
 If you download, use, or adapt any part of this repository—including the source code, synthetic datasets (`BoundarySet` and the boundary-training data), scripts, or released experimental artifacts—for academic research or publication, citation of our conference paper is required:
 
+### BibTeX
+
+```bibtex
+@inproceedings{wang2026ruleverified,
+  author    = {Wang, {ZiKang} and Wang, Weidong and Duan, Chaohui and Chen, Yue},
+  title     = {A Rule-Verified and Boundary-Aware Framework for {Lithium-Ion} Battery Anomaly Detection},
+  booktitle = {2026 China Automation Congress (CAC)},
+  address   = {Beijing, China},
+  year      = {2026},
+  note      = {Accepted}
+}
+```
+
 ### Reference for Word (full-name format)
 
 Copy the following reference directly into a Microsoft Word reference list:
