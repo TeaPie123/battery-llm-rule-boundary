@@ -1,0 +1,33 @@
+{
+  "threshold": 0.5,
+  "samples": 92194,
+  "prevalence": 0.028797969499099723,
+  "accuracy": 0.028797969499099723,
+  "precision": 0.028797969499099723,
+  "recall": 1.0,
+  "f1": 0.05598372149416441,
+  "fpr": 1.0,
+  "fnr": 0.0,
+  "specificity": 0.0,
+  "auroc": 0.4425193146169575,
+  "auprc": 0.0257337594909232,
+  "tp": 2655,
+  "fp": 89539,
+  "tn": 0,
+  "fn": 0,
+  "elapsed_seconds": 382.28487378499995,
+  "samples_per_second": 241.16570212990075,
+  "peak_memory_mib": 2255.85595703125,
+  "mode": "zero_shot",
+  "test": "data/processed/revision_grouped_v1/test_natural.jsonl",
+  "model": "models/Qwen/Qwen2___5-0___5B-Instruct",
+  "adapter": null,
+  "prompt_lengths": {
+    "min": 365,
+    "max": 420,
+    "mean": 415.6740351866716,
+    "p95": 419.0,
+    "p99": 419.0,
+    "truncated": 0
+  }
+}

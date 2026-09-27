@@ -1,0 +1,4 @@
+dataset,first,second,first_correct_second_wrong,first_wrong_second_correct,discordant,exact_two_sided_p,holm_rank,holm_adjusted_p
+boundary,Base-LoRA,Pure augmentation,1,14,15,0.0009765625,1,0.0029296875
+boundary,Base-LoRA,Boundary weighted,0,7,7,0.015625,2,0.03125
+boundary,Pure augmentation,Boundary weighted,9,3,12,0.14599609375,3,0.14599609375

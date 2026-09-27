@@ -1,0 +1,13 @@
+﻿method,rule,scope,samples,model_errors,rule_verifier_corrections,unnecessary_overrides,final_errors
+Base-LoRA,charge_current_jump,all,43,1,1,0,0
+Base-LoRA,charge_current_jump,isolated,43,1,1,0,0
+Base-LoRA,cell_voltage_jump,all,40,0,0,0,0
+Base-LoRA,cell_voltage_jump,isolated,40,0,0,0,0
+Pure augmentation,charge_current_jump,all,43,1,1,0,0
+Pure augmentation,charge_current_jump,isolated,43,1,1,0,0
+Pure augmentation,cell_voltage_jump,all,40,0,0,0,0
+Pure augmentation,cell_voltage_jump,isolated,40,0,0,0,0
+Boundary weighted,charge_current_jump,all,43,1,1,0,0
+Boundary weighted,charge_current_jump,isolated,43,1,1,0,0
+Boundary weighted,cell_voltage_jump,all,40,0,0,0,0
+Boundary weighted,cell_voltage_jump,isolated,40,0,0,0,0

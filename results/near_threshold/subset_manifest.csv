@@ -1,0 +1,5 @@
+﻿rule,scope,samples,below_or_equal,above,gold_normal,gold_anomaly,records_with_other_rule_triggers
+charge_current_jump,all,43,31,12,31,12,0
+charge_current_jump,isolated,43,31,12,31,12,0
+cell_voltage_jump,all,40,20,20,20,20,0
+cell_voltage_jump,isolated,40,20,20,20,20,0

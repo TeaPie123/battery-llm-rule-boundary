@@ -1,0 +1,6 @@
+record_id,case_type,gold,base_pred,base_score,pure_pred,pure_score,weighted_pred,weighted_score
+900002,charge_current_boundary,false,true,0.9995694756507874,false,0.4073334038257599,true,0.9324532747268677
+900008,non_charge_current_applicability,false,true,0.9975274205207825,false,0.014063628390431404,false,0.02931223064661026
+900018,cell_voltage_boundary,false,true,0.9997040629386902,true,0.9947799444198608,true,0.9996199607849121
+900041,temperature_boundary,true,false,0.042087726294994354,true,0.9890130758285522,false,0.000552778656128794
+900056,charge_total_voltage_jump_boundary,true,false,0.29421496391296387,false,0.004609572235494852,false,0.03308597952127457

@@ -1,0 +1,16 @@
+﻿source,split,state_group,count,proportion
+natural_observed,all,charge,174275,0.28360594111932197
+natural_observed,all,discharge,156424,0.2545561654491397
+natural_observed,all,other_or_idle,283798,0.4618378934315383
+natural_observed,test,charge,26118,0.28329392368266915
+natural_observed,test,discharge,23540,0.2553311495325075
+natural_observed,test,other_or_idle,42536,0.4613749267848233
+natural_observed,train,charge,121952,0.28349722202850036
+natural_observed,train,discharge,109491,0.2545296045749355
+natural_observed,train,other_or_idle,198727,0.46197317339656413
+natural_observed,val,charge,26205,0.2844257757806649
+natural_observed,val,discharge,23393,0.2539046812759815
+natural_observed,val,other_or_idle,42535,0.4616695429433536
+synthetic_boundary,boundary,charge,26,0.36619718309859156
+synthetic_boundary,boundary,discharge,24,0.3380281690140845
+synthetic_boundary,boundary,other_or_idle,21,0.29577464788732394

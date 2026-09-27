@@ -1,0 +1,13 @@
+﻿rule,scope,first,second,first_correct_second_wrong,first_wrong_second_correct,discordant,exact_two_sided_p,holm_rank,holm_adjusted_p
+charge_current_jump,all,Base-LoRA,Pure augmentation,0,0,0,1.0,1,1.0
+charge_current_jump,all,Base-LoRA,Boundary weighted,0,0,0,1.0,2,1.0
+charge_current_jump,all,Pure augmentation,Boundary weighted,0,0,0,1.0,3,1.0
+charge_current_jump,isolated,Base-LoRA,Pure augmentation,0,0,0,1.0,1,1.0
+charge_current_jump,isolated,Base-LoRA,Boundary weighted,0,0,0,1.0,2,1.0
+charge_current_jump,isolated,Pure augmentation,Boundary weighted,0,0,0,1.0,3,1.0
+cell_voltage_jump,all,Base-LoRA,Pure augmentation,0,0,0,1.0,1,1.0
+cell_voltage_jump,all,Base-LoRA,Boundary weighted,0,0,0,1.0,2,1.0
+cell_voltage_jump,all,Pure augmentation,Boundary weighted,0,0,0,1.0,3,1.0
+cell_voltage_jump,isolated,Base-LoRA,Pure augmentation,0,0,0,1.0,1,1.0
+cell_voltage_jump,isolated,Base-LoRA,Boundary weighted,0,0,0,1.0,2,1.0
+cell_voltage_jump,isolated,Pure augmentation,Boundary weighted,0,0,0,1.0,3,1.0

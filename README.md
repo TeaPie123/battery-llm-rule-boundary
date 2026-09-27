@@ -1,49 +1,71 @@
-# Rule-Verified and Boundary-Aware LLM for Lithium-Ion Battery Anomaly Detection
+# Rule-Verified and Boundary-Aware Battery Anomaly Detection
 
-This repository contains code and experimental artifacts for a rule-verified and boundary-aware LLM framework for lithium-ion battery anomaly detection.
+Code and public experimental artifacts for the final revision of **“A Rule-Verified and Boundary-Aware Framework for Lithium-Ion Battery Anomaly Detection.”**
 
-## Main Idea
+## Version notice
 
-A LoRA-tuned LLM can achieve high accuracy on a standard random test set, but may still fail on numerical threshold-boundary and rule-applicability cases.
+The final paper does **not** use the old random-record v3/v4 results as its main evidence. Those scripts remain in `scripts/` only for traceability. The final cycle-isolated experiment pipeline is in [`scripts/revision/`](scripts/revision/), and the corresponding aggregate results are in [`results/`](results/).
 
-This project studies:
+Three historical components are intentionally reused by the final pipeline:
 
-1. rule-supervised LoRA fine-tuning for battery anomaly detection;
-2. executable RuleVerifier for rule consistency checking;
-3. BoundarySet for threshold-boundary robustness evaluation;
-4. boundary-aware LoRA training.
+- `scripts/20_rule_verifier_v3.py`: the original executable RuleVerifier implementation;
+- `scripts/21_build_boundary_testset.py`: the 71-case synthetic BoundarySet builder;
+- `scripts/23_build_boundary_train_v4.py`: the source of the 339 unique boundary-training scenarios.
 
-## Key Results
+The final LSTM filename also contains `v3`, but `revision_lstm_baseline_v3.py` is the audited final LSTM implementation; v1 and v2 were pilot runs and are not included.
 
-### Standard Test Set
+## Final paper results
 
-| Method | Accuracy | Precision | Recall | F1 |
+| Method | Balanced accuracy | Natural accuracy | Natural FP/FN | BoundarySet accuracy |
 |---|---:|---:|---:|---:|
-| v3 LoRA | 0.999188 | 0.998378 | 1.000000 | 0.999189 |
-| v3 + RuleVerifier | 1.000000 | 1.000000 | 1.000000 | 1.000000 |
-| v4 Boundary-Aware LoRA | 0.997023 | 0.994080 | 1.000000 | 0.997031 |
+| Base-LoRA | 100.0000% | 99.9870% | 12/0 | 61.9718% |
+| Pure augmentation | 100.0000% | 99.9989% | 1/0 | 80.2817% |
+| Boundary weighted | 100.0000% | 99.9989% | 1/0 | 71.8310% |
+| Isolation Forest | 98.1733% | 96.3620% | 3350/4 | 36.6197% |
+| Random Forest | 99.9812% | 99.9881% | 11/0 | 74.6479% |
+| LSTM | 99.5104% | 99.6345% | 322/15 | 56.3380% |
+| Qwen zero-shot | 50.0000% | 2.8798% | 89539/0 | 29.5775% |
+| Qwen four-shot | 50.0000% | 2.8798% | 89539/0 | 29.5775% |
 
-### BoundarySet
+The complete Table III metrics, exact confidence intervals, paired tests, natural near-threshold results, RuleVerifier corrections, timing, and data-validity aggregates are under [`results/`](results/).
 
-| Method | Accuracy | Precision | Recall | F1 | Wrong |
-|---|---:|---:|---:|---:|---:|
-| v3 LoRA | 0.605634 | 0.422222 | 0.904762 | 0.575758 | 28 |
-| v3 + RuleVerifier | 1.000000 | 1.000000 | 1.000000 | 1.000000 | 0 |
-| v4 Boundary-Aware LoRA | 0.718310 | 0.515152 | 0.809524 | 0.629630 | 20 |
-| v4 + RuleVerifier | 1.000000 | 1.000000 | 1.000000 | 1.000000 | 0 |
+## Repository map
 
-## Important Files
+- `scripts/revision/`: final cycle-isolated dataset construction, LoRA training/evaluation, conventional baselines, statistical audits, RuleVerifier evaluation, latency benchmark, and data-validity analysis.
+- `scripts/13_*.py` through `scripts/26_*.py`: historical v3/v4 pipeline retained for provenance.
+- `data/processed/boundary_test/`: public synthetic 71-case BoundarySet.
+- `data/processed/boundary_train/`: public synthetic boundary-training scenarios.
+- `results/paper_final/`: final comparison tables and synthetic per-case LoRA predictions.
+- `results/near_threshold/`: aggregate held-out-cycle near-threshold analyses.
+- `results/rule_verifier*`: correction and CPU-latency summaries.
+- `results/data_validity/`: aggregate validity and sensitivity analyses.
+- `docs/code_review.md`: code-review findings, fixes, and remaining limits.
+- `docs/reproduce.md`: execution order and reproducibility instructions.
 
-- `scripts/20_rule_verifier_v3.py`: executable RuleVerifier.
-- `scripts/21_build_boundary_testset.py`: build BoundarySet.
-- `scripts/22_eval_v3_on_boundary.py`: evaluate v3 on BoundarySet.
-- `scripts/23_build_boundary_train_v4.py`: build boundary-aware training samples.
-- `scripts/24_train_qwen_lora_v4_boundary.py`: train v4 Boundary-Aware LoRA.
-- `scripts/25_eval_v4_on_boundary.py`: evaluate v4 on BoundarySet.
-- `scripts/26_eval_qwen_lora_v4_full_batched.py`: evaluate v4 on the standard test set.
+## Quick public-artifact verification
 
-## Data Notice
+```bash
+python scripts/revision/verify_paper_results.py
+```
 
-The raw battery dataset, pretrained base model, and trained LoRA checkpoints are not included in this repository.
+A successful run prints `PAPER_RESULTS_CHECKS_OK`. This verifies the public artifacts against Tables II-VI and the paper’s data-validity statements without requiring private records or model checkpoints.
 
-The included BoundarySet and boundary-training samples are synthetic rule-based samples used for robustness evaluation and boundary-aware training.
+## Data and model availability
+
+The raw battery records, record-level natural-test predictions, pretrained Qwen files, trained LoRA adapters, and model checkpoints are not published because of data-access, privacy, and size constraints. The repository includes only source code, synthetic data, synthetic per-case predictions, and aggregate natural-data results.
+
+Expected local model path:
+
+```text
+models/Qwen/Qwen2___5-0___5B-Instruct
+```
+
+See [`docs/data_availability.md`](docs/data_availability.md) for the private inputs needed for a full rerun.
+
+## Audit status
+
+All 22 revision scripts parse successfully. The public result checker passes. The review found no error that changes the final headline metrics. Two non-invalidating reproducibility issues were documented and addressed in this release: automatic Holm correction was added to the final comparison builder, and cycle identifiers are normalized before duplicate detection. Two Table V scores in the paper are presentation-rounded rather than exact six-decimal renderings; the exact stored scores are published in `results/paper_final/representative_boundary_cases.csv`.
+
+## License
+
+No open-source license has been selected yet. Until the authors add one, normal copyright restrictions apply.

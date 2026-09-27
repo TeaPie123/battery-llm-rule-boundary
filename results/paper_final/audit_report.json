@@ -1,0 +1,90 @@
+{
+  "version": "revision_baseline_comparison_v2",
+  "checks": [
+    {
+      "check": "all_predictions_and_metrics",
+      "status": "pass",
+      "details": "24 prediction/metric pairs matched official ID sets, per-ID gold labels, scores, thresholds, and recomputed metrics"
+    },
+    {
+      "check": "lstm_convergence",
+      "status": "pass",
+      "details": {
+        "best_epoch": 56,
+        "stopped_epoch": 66,
+        "patience": 10,
+        "stopped_before_max_epoch": true
+      }
+    },
+    {
+      "check": "source_provenance",
+      "status": "pass",
+      "details": {
+        "traditional": 18,
+        "lstm_v3": 11,
+        "general_llm": 14
+      }
+    },
+    {
+      "check": "pairwise_mcnemar",
+      "status": "pass",
+      "details": "84 exact paired tests computed by record ID"
+    }
+  ],
+  "methods": {
+    "Base-LoRA": {
+      "family": "LoRA",
+      "directory": "outputs/revision_grouped_v1/eval",
+      "prefix": "base_lora_seed42"
+    },
+    "Pure augmentation": {
+      "family": "LoRA",
+      "directory": "outputs/revision_grouped_v1/eval",
+      "prefix": "pure_augmentation_seed42"
+    },
+    "Boundary weighted": {
+      "family": "LoRA",
+      "directory": "outputs/revision_grouped_v1/eval",
+      "prefix": "boundary_weighted_seed42"
+    },
+    "Isolation Forest": {
+      "family": "traditional",
+      "directory": "outputs/revision_traditional_baselines_v1",
+      "prefix": "isolation_forest"
+    },
+    "Random Forest": {
+      "family": "traditional",
+      "directory": "outputs/revision_traditional_baselines_v1",
+      "prefix": "random_forest"
+    },
+    "LSTM": {
+      "family": "deep temporal",
+      "directory": "outputs/revision_lstm_baseline_v3",
+      "prefix": "lstm"
+    },
+    "Qwen zero-shot": {
+      "family": "general LLM",
+      "directory": "outputs/revision_general_llm_baselines_v1",
+      "prefix": "zero_shot"
+    },
+    "Qwen four-shot": {
+      "family": "general LLM",
+      "directory": "outputs/revision_general_llm_baselines_v1",
+      "prefix": "few_shot"
+    }
+  },
+  "datasets": {
+    "balanced": 5310,
+    "natural": 92194,
+    "boundary": 71
+  },
+  "lstm_final_version": {
+    "used": "revision_lstm_baseline_v3",
+    "excluded_pilots": [
+      "revision_lstm_baseline_v1",
+      "revision_lstm_baseline_v2"
+    ],
+    "best_epoch": 56,
+    "stopped_epoch": 66
+  }
+}

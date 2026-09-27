@@ -1,0 +1,16 @@
+﻿metric,value
+current_value_pairs,614497
+current_exact_equal_pairs,614497
+current_exact_equal_rate,1.0
+current_max_abs_difference_v,0.0
+diff_pairs,613714
+diff_exact_equal_pairs,613714
+diff_exact_equal_rate,1.0
+diff_max_abs_difference_v,0.0
+trigger_overlap_both,0
+trigger_overlap_cell_only,3802
+trigger_overlap_cell_trigger,3802
+trigger_overlap_charge_total_only,0
+trigger_overlap_charge_total_trigger,0
+rule_trigger_cell_voltage_jump,3802
+rule_trigger_charge_current_jump,13887

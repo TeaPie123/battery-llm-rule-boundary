@@ -1,0 +1,10 @@
+﻿method,dataset,samples,prevalence,llm_accuracy,llm_fp,llm_fn,llm_rule_inconsistencies,corrected_model_errors,unnecessary_overrides,final_accuracy,final_tp,final_fp,final_tn,final_fn
+Base-LoRA,balanced,5310,0.5,1.0,0,0,0,0,0,1.0,2655,0,2655,0
+Base-LoRA,natural,92194,0.028797969499099723,0.9998698396858797,12,0,12,12,0,1.0,2655,0,89539,0
+Base-LoRA,boundary,71,0.29577464788732394,0.6197183098591549,17,10,27,27,0,1.0,21,0,50,0
+Pure augmentation,balanced,5310,0.5,1.0,0,0,0,0,0,1.0,2655,0,2655,0
+Pure augmentation,natural,92194,0.028797969499099723,0.9999891533071567,1,0,1,1,0,1.0,2655,0,89539,0
+Pure augmentation,boundary,71,0.29577464788732394,0.8028169014084507,10,4,14,14,0,1.0,21,0,50,0
+Boundary weighted,balanced,5310,0.5,1.0,0,0,0,0,0,1.0,2655,0,2655,0
+Boundary weighted,natural,92194,0.028797969499099723,0.9999891533071567,1,0,1,1,0,1.0,2655,0,89539,0
+Boundary weighted,boundary,71,0.29577464788732394,0.7183098591549296,10,10,20,20,0,1.0,21,0,50,0

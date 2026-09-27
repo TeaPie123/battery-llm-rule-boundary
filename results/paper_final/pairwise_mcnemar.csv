@@ -1,0 +1,85 @@
+﻿dataset,first,second,first_correct_second_wrong,first_wrong_second_correct,discordant,exact_two_sided_p
+balanced,Base-LoRA,Pure augmentation,0,0,0,1.0
+balanced,Base-LoRA,Boundary weighted,0,0,0,1.0
+balanced,Base-LoRA,Isolation Forest,97,0,97,1.262177448353619e-29
+balanced,Base-LoRA,Random Forest,1,0,1,1.0
+balanced,Base-LoRA,LSTM,26,0,26,2.9802322387695312e-08
+balanced,Base-LoRA,Qwen zero-shot,2655,0,2655,0.0
+balanced,Base-LoRA,Qwen four-shot,2655,0,2655,0.0
+balanced,Pure augmentation,Boundary weighted,0,0,0,1.0
+balanced,Pure augmentation,Isolation Forest,97,0,97,1.262177448353619e-29
+balanced,Pure augmentation,Random Forest,1,0,1,1.0
+balanced,Pure augmentation,LSTM,26,0,26,2.9802322387695312e-08
+balanced,Pure augmentation,Qwen zero-shot,2655,0,2655,0.0
+balanced,Pure augmentation,Qwen four-shot,2655,0,2655,0.0
+balanced,Boundary weighted,Isolation Forest,97,0,97,1.262177448353619e-29
+balanced,Boundary weighted,Random Forest,1,0,1,1.0
+balanced,Boundary weighted,LSTM,26,0,26,2.9802322387695312e-08
+balanced,Boundary weighted,Qwen zero-shot,2655,0,2655,0.0
+balanced,Boundary weighted,Qwen four-shot,2655,0,2655,0.0
+balanced,Isolation Forest,Random Forest,0,96,96,2.524354896707238e-29
+balanced,Isolation Forest,LSTM,17,88,105,9.952845271763166e-13
+balanced,Isolation Forest,Qwen zero-shot,2562,4,2566,0.0
+balanced,Isolation Forest,Qwen four-shot,2562,4,2566,0.0
+balanced,Random Forest,LSTM,25,0,25,5.960464477539063e-08
+balanced,Random Forest,Qwen zero-shot,2654,0,2654,0.0
+balanced,Random Forest,Qwen four-shot,2654,0,2654,0.0
+balanced,LSTM,Qwen zero-shot,2644,15,2659,0.0
+balanced,LSTM,Qwen four-shot,2644,15,2659,0.0
+balanced,Qwen zero-shot,Qwen four-shot,0,0,0,1.0
+natural,Base-LoRA,Pure augmentation,0,11,11,0.0009765625
+natural,Base-LoRA,Boundary weighted,0,11,11,0.0009765625
+natural,Base-LoRA,Isolation Forest,3353,11,3364,0.0
+natural,Base-LoRA,Random Forest,11,12,23,1.0
+natural,Base-LoRA,LSTM,337,12,349,1.017960814894281e-83
+natural,Base-LoRA,Qwen zero-shot,89527,0,89527,0.0
+natural,Base-LoRA,Qwen four-shot,89527,0,89527,0.0
+natural,Pure augmentation,Boundary weighted,0,0,0,1.0
+natural,Pure augmentation,Isolation Forest,3353,0,3353,0.0
+natural,Pure augmentation,Random Forest,11,1,12,0.00634765625
+natural,Pure augmentation,LSTM,337,1,338,1.21085226763966e-99
+natural,Pure augmentation,Qwen zero-shot,89538,0,89538,0.0
+natural,Pure augmentation,Qwen four-shot,89538,0,89538,0.0
+natural,Boundary weighted,Isolation Forest,3353,0,3353,0.0
+natural,Boundary weighted,Random Forest,11,1,12,0.00634765625
+natural,Boundary weighted,LSTM,337,1,338,1.21085226763966e-99
+natural,Boundary weighted,Qwen zero-shot,89538,0,89538,0.0
+natural,Boundary weighted,Qwen four-shot,89538,0,89538,0.0
+natural,Isolation Forest,Random Forest,0,3343,3343,0.0
+natural,Isolation Forest,LSTM,60,3077,3137,0.0
+natural,Isolation Forest,Qwen zero-shot,86189,4,86193,0.0
+natural,Isolation Forest,Qwen four-shot,86189,4,86193,0.0
+natural,Random Forest,LSTM,326,0,326,1.463023860841312e-98
+natural,Random Forest,Qwen zero-shot,89528,0,89528,0.0
+natural,Random Forest,Qwen four-shot,89528,0,89528,0.0
+natural,LSTM,Qwen zero-shot,89217,15,89232,0.0
+natural,LSTM,Qwen four-shot,89217,15,89232,0.0
+natural,Qwen zero-shot,Qwen four-shot,0,0,0,1.0
+boundary,Base-LoRA,Pure augmentation,1,14,15,0.0009765625
+boundary,Base-LoRA,Boundary weighted,0,7,7,0.015625
+boundary,Base-LoRA,Isolation Forest,26,8,34,0.0029350556433200836
+boundary,Base-LoRA,Random Forest,5,14,19,0.063568115234375
+boundary,Base-LoRA,LSTM,22,18,40,0.6358280026288412
+boundary,Base-LoRA,Qwen zero-shot,33,10,43,0.0006061066312668117
+boundary,Base-LoRA,Qwen four-shot,33,10,43,0.0006061066312668117
+boundary,Pure augmentation,Boundary weighted,9,3,12,0.14599609375
+boundary,Pure augmentation,Isolation Forest,33,2,35,3.6729034036397934e-08
+boundary,Pure augmentation,Random Forest,11,7,18,0.480682373046875
+boundary,Pure augmentation,LSTM,31,14,45,0.016094360031274842
+boundary,Pure augmentation,Qwen zero-shot,40,4,44,1.7051434042514302e-08
+boundary,Pure augmentation,Qwen four-shot,40,4,44,1.7051434042514302e-08
+boundary,Boundary weighted,Isolation Forest,33,8,41,0.00011222142620681552
+boundary,Boundary weighted,Random Forest,5,7,12,0.7744140625
+boundary,Boundary weighted,LSTM,25,14,39,0.10812902140605732
+boundary,Boundary weighted,Qwen zero-shot,40,10,50,2.3861331676755526e-05
+boundary,Boundary weighted,Qwen four-shot,40,10,50,2.3861331676755526e-05
+boundary,Isolation Forest,Random Forest,10,37,47,9.848878492846323e-05
+boundary,Isolation Forest,LSTM,24,38,62,0.09795444051950736
+boundary,Isolation Forest,Qwen zero-shot,7,2,9,0.1796875
+boundary,Isolation Forest,Qwen four-shot,7,2,9,0.1796875
+boundary,Random Forest,LSTM,23,10,33,0.03508203336969018
+boundary,Random Forest,Qwen zero-shot,44,12,56,2.0876568218419767e-05
+boundary,Random Forest,Qwen four-shot,44,12,56,2.0876568218419767e-05
+boundary,LSTM,Qwen zero-shot,36,17,53,0.012660335802414213
+boundary,LSTM,Qwen four-shot,36,17,53,0.012660335802414213
+boundary,Qwen zero-shot,Qwen four-shot,0,0,0,1.0

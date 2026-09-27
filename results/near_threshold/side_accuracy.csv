@@ -1,0 +1,65 @@
+﻿method,family,rule,scope,side,samples,correct,accuracy,accuracy_exact_95ci_lower,accuracy_exact_95ci_upper
+Base-LoRA,LoRA,charge_current_jump,all,below_or_equal,31,30,0.967741935483871,0.8329788837697722,0.9991836299281533
+Base-LoRA,LoRA,charge_current_jump,all,above,12,12,1.0,0.7353515306029488,1.0
+Base-LoRA,LoRA,charge_current_jump,isolated,below_or_equal,31,30,0.967741935483871,0.8329788837697722,0.9991836299281533
+Base-LoRA,LoRA,charge_current_jump,isolated,above,12,12,1.0,0.7353515306029488,1.0
+Base-LoRA,LoRA,cell_voltage_jump,all,below_or_equal,20,20,1.0,0.8315665290169146,1.0
+Base-LoRA,LoRA,cell_voltage_jump,all,above,20,20,1.0,0.8315665290169146,1.0
+Base-LoRA,LoRA,cell_voltage_jump,isolated,below_or_equal,20,20,1.0,0.8315665290169146,1.0
+Base-LoRA,LoRA,cell_voltage_jump,isolated,above,20,20,1.0,0.8315665290169146,1.0
+Pure augmentation,LoRA,charge_current_jump,all,below_or_equal,31,30,0.967741935483871,0.8329788837697722,0.9991836299281533
+Pure augmentation,LoRA,charge_current_jump,all,above,12,12,1.0,0.7353515306029488,1.0
+Pure augmentation,LoRA,charge_current_jump,isolated,below_or_equal,31,30,0.967741935483871,0.8329788837697722,0.9991836299281533
+Pure augmentation,LoRA,charge_current_jump,isolated,above,12,12,1.0,0.7353515306029488,1.0
+Pure augmentation,LoRA,cell_voltage_jump,all,below_or_equal,20,20,1.0,0.8315665290169146,1.0
+Pure augmentation,LoRA,cell_voltage_jump,all,above,20,20,1.0,0.8315665290169146,1.0
+Pure augmentation,LoRA,cell_voltage_jump,isolated,below_or_equal,20,20,1.0,0.8315665290169146,1.0
+Pure augmentation,LoRA,cell_voltage_jump,isolated,above,20,20,1.0,0.8315665290169146,1.0
+Boundary weighted,LoRA,charge_current_jump,all,below_or_equal,31,30,0.967741935483871,0.8329788837697722,0.9991836299281533
+Boundary weighted,LoRA,charge_current_jump,all,above,12,12,1.0,0.7353515306029488,1.0
+Boundary weighted,LoRA,charge_current_jump,isolated,below_or_equal,31,30,0.967741935483871,0.8329788837697722,0.9991836299281533
+Boundary weighted,LoRA,charge_current_jump,isolated,above,12,12,1.0,0.7353515306029488,1.0
+Boundary weighted,LoRA,cell_voltage_jump,all,below_or_equal,20,20,1.0,0.8315665290169146,1.0
+Boundary weighted,LoRA,cell_voltage_jump,all,above,20,20,1.0,0.8315665290169146,1.0
+Boundary weighted,LoRA,cell_voltage_jump,isolated,below_or_equal,20,20,1.0,0.8315665290169146,1.0
+Boundary weighted,LoRA,cell_voltage_jump,isolated,above,20,20,1.0,0.8315665290169146,1.0
+Isolation Forest,traditional,charge_current_jump,all,below_or_equal,31,0,0.0,0.0,0.11218874692236996
+Isolation Forest,traditional,charge_current_jump,all,above,12,12,1.0,0.7353515306029488,1.0
+Isolation Forest,traditional,charge_current_jump,isolated,below_or_equal,31,0,0.0,0.0,0.11218874692236996
+Isolation Forest,traditional,charge_current_jump,isolated,above,12,12,1.0,0.7353515306029488,1.0
+Isolation Forest,traditional,cell_voltage_jump,all,below_or_equal,20,0,0.0,0.0,0.1684334709830853
+Isolation Forest,traditional,cell_voltage_jump,all,above,20,20,1.0,0.8315665290169146,1.0
+Isolation Forest,traditional,cell_voltage_jump,isolated,below_or_equal,20,0,0.0,0.0,0.1684334709830853
+Isolation Forest,traditional,cell_voltage_jump,isolated,above,20,20,1.0,0.8315665290169146,1.0
+Random Forest,traditional,charge_current_jump,all,below_or_equal,31,31,1.0,0.88781125307763,1.0
+Random Forest,traditional,charge_current_jump,all,above,12,12,1.0,0.7353515306029488,1.0
+Random Forest,traditional,charge_current_jump,isolated,below_or_equal,31,31,1.0,0.88781125307763,1.0
+Random Forest,traditional,charge_current_jump,isolated,above,12,12,1.0,0.7353515306029488,1.0
+Random Forest,traditional,cell_voltage_jump,all,below_or_equal,20,9,0.45,0.2305778967759241,0.6847218669594515
+Random Forest,traditional,cell_voltage_jump,all,above,20,20,1.0,0.8315665290169146,1.0
+Random Forest,traditional,cell_voltage_jump,isolated,below_or_equal,20,9,0.45,0.2305778967759241,0.6847218669594515
+Random Forest,traditional,cell_voltage_jump,isolated,above,20,20,1.0,0.8315665290169146,1.0
+LSTM,deep temporal,charge_current_jump,all,below_or_equal,31,8,0.25806451612903225,0.11856399582955109,0.4461339343348965
+LSTM,deep temporal,charge_current_jump,all,above,12,7,0.5833333333333334,0.2766696856821058,0.8483477701915698
+LSTM,deep temporal,charge_current_jump,isolated,below_or_equal,31,8,0.25806451612903225,0.11856399582955109,0.4461339343348965
+LSTM,deep temporal,charge_current_jump,isolated,above,12,7,0.5833333333333334,0.2766696856821058,0.8483477701915698
+LSTM,deep temporal,cell_voltage_jump,all,below_or_equal,20,8,0.4,0.1911900607253072,0.6394574126925103
+LSTM,deep temporal,cell_voltage_jump,all,above,20,19,0.95,0.7512672372279722,0.9987349105020502
+LSTM,deep temporal,cell_voltage_jump,isolated,below_or_equal,20,8,0.4,0.1911900607253072,0.6394574126925103
+LSTM,deep temporal,cell_voltage_jump,isolated,above,20,19,0.95,0.7512672372279722,0.9987349105020502
+Qwen zero-shot,general LLM,charge_current_jump,all,below_or_equal,31,0,0.0,0.0,0.11218874692236996
+Qwen zero-shot,general LLM,charge_current_jump,all,above,12,12,1.0,0.7353515306029488,1.0
+Qwen zero-shot,general LLM,charge_current_jump,isolated,below_or_equal,31,0,0.0,0.0,0.11218874692236996
+Qwen zero-shot,general LLM,charge_current_jump,isolated,above,12,12,1.0,0.7353515306029488,1.0
+Qwen zero-shot,general LLM,cell_voltage_jump,all,below_or_equal,20,0,0.0,0.0,0.1684334709830853
+Qwen zero-shot,general LLM,cell_voltage_jump,all,above,20,20,1.0,0.8315665290169146,1.0
+Qwen zero-shot,general LLM,cell_voltage_jump,isolated,below_or_equal,20,0,0.0,0.0,0.1684334709830853
+Qwen zero-shot,general LLM,cell_voltage_jump,isolated,above,20,20,1.0,0.8315665290169146,1.0
+Qwen four-shot,general LLM,charge_current_jump,all,below_or_equal,31,0,0.0,0.0,0.11218874692236996
+Qwen four-shot,general LLM,charge_current_jump,all,above,12,12,1.0,0.7353515306029488,1.0
+Qwen four-shot,general LLM,charge_current_jump,isolated,below_or_equal,31,0,0.0,0.0,0.11218874692236996
+Qwen four-shot,general LLM,charge_current_jump,isolated,above,12,12,1.0,0.7353515306029488,1.0
+Qwen four-shot,general LLM,cell_voltage_jump,all,below_or_equal,20,0,0.0,0.0,0.1684334709830853
+Qwen four-shot,general LLM,cell_voltage_jump,all,above,20,20,1.0,0.8315665290169146,1.0
+Qwen four-shot,general LLM,cell_voltage_jump,isolated,below_or_equal,20,0,0.0,0.0,0.1684334709830853
+Qwen four-shot,general LLM,cell_voltage_jump,isolated,above,20,20,1.0,0.8315665290169146,1.0

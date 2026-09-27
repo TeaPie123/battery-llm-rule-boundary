@@ -1,0 +1,33 @@
+{
+  "threshold": 0.5,
+  "samples": 71,
+  "prevalence": 0.29577464788732394,
+  "accuracy": 0.29577464788732394,
+  "precision": 0.29577464788732394,
+  "recall": 1.0,
+  "f1": 0.45652173913043476,
+  "fpr": 1.0,
+  "fnr": 0.0,
+  "specificity": 0.0,
+  "auroc": 0.4619047619047618,
+  "auprc": 0.2809673757042178,
+  "tp": 21,
+  "fp": 50,
+  "tn": 0,
+  "fn": 0,
+  "elapsed_seconds": 0.9247826079990773,
+  "samples_per_second": 76.77480024588745,
+  "peak_memory_mib": 4594.576171875,
+  "mode": "few_shot",
+  "test": "data/processed/boundary_test/boundary_test.jsonl",
+  "model": "models/Qwen/Qwen2___5-0___5B-Instruct",
+  "adapter": null,
+  "prompt_lengths": {
+    "min": 1184,
+    "max": 1196,
+    "mean": 1188.380281690141,
+    "p95": 1195.0,
+    "p99": 1196.0,
+    "truncated": 0
+  }
+}

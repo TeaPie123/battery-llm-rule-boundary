@@ -1,189 +1,145 @@
-# Reproducibility Guide
+# Reproducing the final revision experiments
 
-This document describes how to reproduce the main experiments in this repository.
+## 1. Scope
 
-## 1. Repository Scope
+The final paper uses cycle-isolated train/validation/test partitions and recomputes all five rule labels with the previous observation reset at every cycle boundary. The older random-record v3/v4 pipeline is retained only as historical evidence and must not be used to regenerate the final paper tables.
 
-This repository provides the core code and experimental summaries for a rule-verified and boundary-aware LLM framework for lithium-ion battery anomaly detection.
+The full pipeline needs the private 614,497-record source file and the local Qwen2.5-0.5B-Instruct model. Public artifact checks do not need either.
 
-The repository includes:
+## 2. Environment
 
-- rule-based anomaly verification code;
-- BoundarySet construction code;
-- boundary-aware training data construction code;
-- v3 and v4 LoRA training/evaluation scripts;
-- final experimental summaries.
+The recorded run used Ubuntu 22.04, Python 3.12.11, one RTX 4090, PyTorch 2.13.0+cu132, Transformers 4.57.6, PEFT 0.19.1, Datasets 4.8.5, Accelerate 1.14.0, scikit-learn 1.9.0, pandas 2.3.3, SciPy 1.18.0, and NumPy 2.3.5.
 
-The repository does not include:
+Install the CUDA-compatible PyTorch build for the target machine, then install the remaining packages:
 
-- the original raw battery Excel dataset;
-- the pretrained Qwen base model;
-- trained LoRA checkpoints;
-- large intermediate processed datasets.
+```bash
+python -m pip install -r requirements.txt
+```
 
-Therefore, this repository is intended to support method reproduction and paper review. Full raw-data reproduction requires access to the original private battery dataset.
+The scripts expect the base model at:
 
-## 2. Expected Environment
+```text
+models/Qwen/Qwen2___5-0___5B-Instruct
+```
 
-The experiments were conducted with:
+## 3. Public result verification
 
-- Python 3.x
-- PyTorch
-- Transformers
-- PEFT
-- Datasets
-- Pandas
-- scikit-learn
-- openpyxl
-- accelerate
+Run this first after cloning:
 
-Minimal installation command:
+```bash
+python scripts/revision/verify_paper_results.py
+```
 
-    pip install torch transformers peft datasets pandas scikit-learn openpyxl accelerate safetensors
+It checks:
 
-The base model used in the experiments was:
+- Table II partition counts and prevalence;
+- all displayed Table III metrics and exact BoundarySet confidence intervals;
+- the three prespecified exact McNemar tests and Holm correction;
+- Table IV natural near-threshold results;
+- Table V synthetic case predictions and stored scores;
+- Table VI RuleVerifier corrections and latency;
+- voltage-field redundancy and rule-removal sensitivity.
 
-    Qwen2.5-0.5B-Instruct
+## 4. Private input layout
 
-In our local experiments, the model path was:
+Place the private processed record array at:
 
-    models/Qwen/Qwen2___5-0___5B-Instruct
+```text
+data/processed/record_core_total_confirmed_for_new_error_anomalies.json
+```
 
-## 3. Data Preparation
+Each record must include `record_id`, `cycle_no`, `timestamp`, `step_status`, state code, total voltage, cell voltage, current, and temperature using the field names consumed by `build_revision_grouped_dataset.py`.
 
-The original raw battery dataset is not included in this repository.
+The stored old `is_anomaly` value is not trusted by the final pipeline; final labels are recomputed from the five rules within cycle.
 
-The expected raw-data preprocessing pipeline is:
+## 5. Final pipeline order
 
-1. Convert the original battery record Excel file into a standardized processed CSV/XLSX format.
-2. Apply the adapted rule-based labeling script.
-3. Construct LoRA training, validation, and test datasets.
+Use an absolute repository path in place of `$PROJECT`.
 
-The adapted rule-labeling script is:
+### A. Audit the historical split and labels
 
-    python scripts/new_error_linux_full_total_confirmed.py
+```bash
+python scripts/revision/audit_split_leakage.py "$PROJECT" "$PROJECT/outputs/revision_audit/split_leakage.json"
+python scripts/revision/audit_rule_consistency.py "$PROJECT" "$PROJECT/outputs/revision_audit/rule_consistency.json"
+```
 
-This script follows the senior rule-based anomaly detection logic, including:
+These scripts document why the old random-record split and cross-cycle differencing were replaced.
 
-- single-cell voltage jump threshold;
-- current jump threshold;
-- temperature jump threshold;
-- charge total-voltage jump threshold;
-- discharge total-voltage upper-limit rule.
+### B. Create the final cycle-group split
 
-## 4. v3 LoRA Baseline
+```bash
+python scripts/revision/design_group_stratified_split.py "$PROJECT" "$PROJECT/outputs/revision_audit/group_stratified_corrected_labels_design.json"
+python scripts/revision/build_revision_grouped_dataset.py "$PROJECT" "$PROJECT/outputs/revision_audit/group_stratified_corrected_labels_design.json" "$PROJECT/data/processed/revision_grouped_v1"
+```
 
-The v3 model is the standard rule-supervised LoRA baseline trained on a full balanced dataset.
+The expected natural split counts are 430,170/92,133/92,194 records across 548/117/118 cycles. The builder refuses to overwrite an existing output directory.
 
-Build v3 full-balanced dataset:
+### C. Build matched boundary interventions
 
-    python scripts/13_prepare_lora_v3_full_balanced.py
+The repository already contains the public synthetic BoundarySet and boundary-training scenarios. To construct the matched training inputs:
 
-Train v3 LoRA:
+```bash
+python scripts/revision/build_revision_boundary_comparison.py --project "$PROJECT" --seed 20260725 --boundary-weight 3
+```
 
-    python scripts/14_train_qwen_lora_v3_full_balanced.py
+Pure augmentation appends 1,017 rows (three copies of each of 339 scenarios). Boundary weighted appends one copy of each scenario with weight 3, giving both interventions the same nominal boundary contribution.
 
-Check split overlap:
+### D. Train the three LoRA variants
 
-    python scripts/16_check_v3_split_overlap.py
+```bash
+python scripts/revision/train_revision_base_lora.py --project "$PROJECT" --train "$PROJECT/data/processed/revision_grouped_v1/train_balanced.jsonl" --val "$PROJECT/data/processed/revision_grouped_v1/val_balanced.jsonl" --output "$PROJECT/outputs/revision_grouped_v1/base_lora_seed42" --seed 42 --max-steps 1000 --learning-rate 1e-4 --max-length 1024
 
-Evaluate v3 on the standard test set:
+python scripts/revision/train_revision_comparison_lora.py --project "$PROJECT" --train "$PROJECT/data/processed/revision_boundary_comparison_v1/train_pure_augmentation.jsonl" --val "$PROJECT/data/processed/revision_grouped_v1/val_balanced.jsonl" --output "$PROJECT/outputs/revision_grouped_v1/pure_augmentation_seed42" --experiment pure_augmentation --seed 42 --max-steps 1000 --learning-rate 1e-4 --max-length 1024
 
-    python scripts/18_eval_qwen_lora_v3_full_batched.py
+python scripts/revision/train_revision_comparison_lora.py --project "$PROJECT" --train "$PROJECT/data/processed/revision_boundary_comparison_v1/train_boundary_weighted.jsonl" --val "$PROJECT/data/processed/revision_grouped_v1/val_balanced.jsonl" --output "$PROJECT/outputs/revision_grouped_v1/boundary_weighted_seed42" --experiment boundary_weighted --seed 42 --max-steps 1000 --learning-rate 1e-4 --max-length 1024
+```
 
-Extract v3 wrong cases:
+### E. Evaluate LoRA models
 
-    python scripts/19_extract_v3_wrong_cases.py
+Run `evaluate_revision_lora.py` for each adapter against:
 
-## 5. RuleVerifier
-
-The RuleVerifier is an executable rule-consistency checker.
-
-It directly recomputes the anomaly label from structured numerical fields and compares the LLM prediction with the rule result.
-
-Run:
-
-    python scripts/20_rule_verifier_v3.py
-
-The RuleVerifier is used to correct LLM mistakes caused by:
-
-- wrong numerical threshold comparison;
-- misunderstanding of rule applicability;
-- confusing equality with strict greater-than conditions.
-
-## 6. BoundarySet Evaluation
-
-BoundarySet is a synthetic evaluation set designed to expose hidden LLM failures near rule thresholds and state applicability boundaries.
-
-Build BoundarySet:
-
-    python scripts/21_build_boundary_testset.py
-
-The generated BoundarySet is saved at:
-
-    data/processed/boundary_test/boundary_test.jsonl
-
-Evaluate v3 on BoundarySet:
-
-    python scripts/22_eval_v3_on_boundary.py
-
-This evaluates:
-
-- v3 LLM-only prediction;
-- RuleVerifier-only prediction;
-- LLM + RuleVerifier correction.
-
-## 7. v4 Boundary-Aware LoRA
-
-The v4 model adds boundary-aware synthetic samples into the training set.
-
-Build boundary-aware training samples:
-
-    python scripts/23_build_boundary_train_v4.py
-
-The synthetic boundary-training data is saved at:
-
-    data/processed/boundary_train/boundary_train.jsonl
-
-Train v4 Boundary-Aware LoRA:
-
-    python scripts/24_train_qwen_lora_v4_boundary.py
-
-Evaluate v4 on BoundarySet:
-
-    python scripts/25_eval_v4_on_boundary.py
-
-Evaluate v4 on the standard test set:
-
-    python scripts/26_eval_qwen_lora_v4_full_batched.py
-
-## 8. Main Experimental Results
-
-### 8.1 Standard Test Set
-
-| Method | Accuracy | Precision | Recall | F1 |
-|---|---:|---:|---:|---:|
-| v3 LoRA | 0.999188 | 0.998378 | 1.000000 | 0.999189 |
-| v3 + RuleVerifier | 1.000000 | 1.000000 | 1.000000 | 1.000000 |
-| v4 Boundary-Aware LoRA | 0.997023 | 0.994080 | 1.000000 | 0.997031 |
-
-### 8.2 BoundarySet
-
-| Method | Accuracy | Precision | Recall | F1 | Wrong |
-|---|---:|---:|---:|---:|---:|
-| v3 LoRA | 0.605634 | 0.422222 | 0.904762 | 0.575758 | 28 |
-| v3 + RuleVerifier | 1.000000 | 1.000000 | 1.000000 | 1.000000 | 0 |
-| v4 Boundary-Aware LoRA | 0.718310 | 0.515152 | 0.809524 | 0.629630 | 20 |
-| v4 + RuleVerifier | 1.000000 | 1.000000 | 1.000000 | 1.000000 | 0 |
-
-## 9. Key Conclusion
-
-The v3 LoRA model performs almost perfectly on the standard random test set, but its BoundarySet accuracy drops substantially.
-
-This shows that ordinary random-test accuracy is insufficient for evaluating rule-based battery anomaly detection with LLMs.
-
-BoundarySet reveals hidden failures in numerical threshold comparison and rule applicability.
-
-Boundary-aware training improves boundary robustness, but does not fully eliminate LLM rule inconsistency.
-
-The executable RuleVerifier provides a final rule-consistency guarantee.
+```text
+data/processed/revision_grouped_v1/test_balanced.jsonl
+data/processed/revision_grouped_v1/test_natural.jsonl
+data/processed/boundary_test/boundary_test.jsonl
+```
+
+Use output names of the form `outputs/revision_grouped_v1/eval/<adapter>_<dataset>.jsonl`. Classification uses the next-token log-probability difference between the one-token Chinese labels “正常” and “异常” with threshold 0.5.
+
+Then run:
+
+```bash
+python scripts/revision/audit_revision_comparison.py --project "$PROJECT"
+python scripts/revision/build_revision_provenance.py --project "$PROJECT"
+```
+
+### F. Run comparison baselines
+
+```bash
+python scripts/revision/revision_traditional_baselines.py "$PROJECT"
+python scripts/revision/revision_audit_traditional_baselines.py "$PROJECT"
+python scripts/revision/revision_lstm_baseline_v3.py "$PROJECT"
+python scripts/revision/revision_evaluate_general_llm.py --project "$PROJECT" --output-name revision_general_llm_baselines_v1 --batch-size 64 --max-length 1536
+```
+
+`revision_lstm_baseline_v3.py` is the final audited LSTM run despite the filename. General-Qwen evaluation must be invoked with `--max-length 1536`, matching the recorded run and the paper.
+
+### G. RuleVerifier, natural-threshold, and validity analyses
+
+```bash
+python scripts/revision/revision_evaluate_rule_verifier_grouped.py "$PROJECT"
+python scripts/revision/revision_benchmark_rule_verifier.py "$PROJECT"
+python scripts/revision/revision_evaluate_natural_near_threshold.py "$PROJECT"
+python scripts/revision/revision_data_validity_analysis.py "$PROJECT"
+python scripts/revision/revision_build_baseline_comparison_v2.py "$PROJECT"
+```
+
+The RuleVerifier evaluation intentionally AST-loads the original functions from `scripts/20_rule_verifier_v3.py`. Its legacy regression guard additionally needs the old v3 test, prediction, and archived case files; those private record-level artifacts are not published.
+
+## 6. Interpretation boundaries
+
+- The 71-case BoundarySet is synthetic and fixed; its exact intervals describe this suite, not deployment prevalence.
+- Natural near-threshold evidence covers only current and cell-voltage jumps.
+- The total-voltage field duplicates the cell-voltage field in all 614,497 natural records, so total-voltage rules are validated only as synthetic logic probes.
+- RuleVerifier reaches 100% agreement by executing the same label rules. It is a consistency layer, not an independent fault detector.
+- The experiments use one source, one compact model, and one seed.
