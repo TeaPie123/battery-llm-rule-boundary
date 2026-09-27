@@ -46,18 +46,11 @@ The complete Table III metrics, exact confidence intervals, paired tests, natura
 
 If you download, use, or adapt any part of this repository—including the source code, synthetic datasets (`BoundarySet` and the boundary-training data), scripts, or released experimental artifacts—for academic research or publication, citation of our conference paper is required:
 
-> Z. Wang, W. Wang, C. Duan, and Y. Chen, “A Rule-Verified and Boundary-Aware Framework for Lithium-Ion Battery Anomaly Detection,” in *Proc. 2026 China Automation Congress (CAC)*, Beijing, China, 2026, accepted.
+### Reference for Word (full-name format)
 
-```bibtex
-@inproceedings{wang2026ruleverified,
-  author    = {Wang, {ZiKang} and Wang, Weidong and Duan, Chaohui and Chen, Yue},
-  title     = {A Rule-Verified and Boundary-Aware Framework for {Lithium-Ion} Battery Anomaly Detection},
-  booktitle = {2026 China Automation Congress (CAC)},
-  address   = {Beijing, China},
-  year      = {2026},
-  note      = {Accepted}
-}
-```
+Copy the following reference directly into a Microsoft Word reference list:
+
+> [1] ZiKang Wang, Weidong Wang, Chaohui Duan, and Yue Chen, “A Rule-Verified and Boundary-Aware Framework for Lithium-Ion Battery Anomaly Detection,” in *Proceedings of the 2026 China Automation Congress (CAC)*, Beijing, China, 2026. Accepted.
 
 The paper has been accepted. Its page range and DOI have not yet been assigned; please use the final IEEE Xplore citation after the proceedings record becomes available.
 
